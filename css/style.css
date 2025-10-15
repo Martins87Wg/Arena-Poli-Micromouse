@@ -1,0 +1,191 @@
+
+:root{
+  /* Larguras / centralização */
+  --wrap-max:     1100px;
+  --timer-width:   900px;   /* 860–940px conforme sua tela */
+  --stage-vpad:     24px;
+
+  /* Topo (logo + título) */
+  --mouse-size:     80px;  /* tamanho do ícone do mouse */
+  --header-gap:     15px;
+  --title-min:      40px;
+  --title-vw:      2.2vw;
+  --title-max:      64px;
+  --subtitle-size:  22px;
+  --accent-color: #f5a003; /* cor do “MICROMOUSE” */
+
+  /* Chip de status */
+  --chip-font:      16px;
+  --chip-pad-y:      8px;
+  --chip-pad-x:     14px;
+  --chip-radius:  999px;
+  --chip-minw:     110px;
+
+  /* Painel do cronômetro */
+  --card-pad-y:     22px;  /* compacto, estilo do mock */
+  --card-pad-x:     28px;
+  --card-radius:    22px;
+
+  /* Dígitos (MM:SS:CC) — com “:” mais perto */
+  --digits-min:     64px;
+  --digits-vw:      9.8vw; /* 9.6–10.0vw se precisar */
+  --digits-max:    164px;
+  --digits-scaleX:  0.98;  /* pouco alongamento */
+  --digits-track:   0.00em;/* <<< tracking global reduzido */
+
+  /* Botões / selo */
+  --btn-font:       18px;
+  --btn-pad-y:      16px;
+  --btn-pad-x:      28px;
+  --badge-max:     340px;
+}
+
+/* =========================
+   TEMA / BASE
+   ========================= */
+:root{
+  --bg:#061219; --bg2:#0b1e2a;
+  --text:#eaf5ff; --muted:#9fb6c6;
+  --orange:#f5a003; --orangeGlow:rgba(240, 132, 0, 0.36);
+  --chip:#0b2030; --chipStroke:#77d1f8;
+  --btn:#0f2d3b;  --btnStroke:#77d1f8;
+  --frameSoft:rgba(90,220,255,.20);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--text);
+  font:16px/1.4 system-ui,Segoe UI,Roboto,Arial;
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+/* Fundo com grade radial */
+.bg{
+  position:fixed; inset:0; z-index:-1;
+  background: radial-gradient(1200px 700px at 50% -8%, var(--bg2), var(--bg));
+}
+.bg::before{
+  content:""; position:absolute; inset:0; opacity:.22;
+  background: repeating-radial-gradient(circle at 50% 32%, #0d2c3e 0 16px, #0000 16px 32px);
+}
+
+/* =========================
+   CENTRALIZAÇÃO
+   ========================= */
+.stage{
+  min-height:100dvh; display:grid; place-items:center;
+  padding:var(--stage-vpad) 0; width:100%; text-align:center;
+}
+.wrap{ width:min(var(--wrap-max), 92vw); margin:0 auto; }
+
+/* =========================
+   HEADER
+   ========================= */
+.hero--center{ text-align:center; }
+.brand-row{
+  width:min(var(--wrap-max), 92vw);
+  margin:0 auto 6px;
+  display:flex; align-items:center; justify-content:center; gap:var(--header-gap);
+}
+.mouse-img{
+  height:var(--mouse-size); width:auto;
+  filter:drop-shadow(0 0 6px rgba(116,217,255,.45));
+}
+.titleblock{ line-height:1.05 }
+.titleline{
+  font-weight:900; letter-spacing:.08em;
+  font-size: clamp(var(--title-min), var(--title-vw), var(--title-max));
+  margin:0;
+}
+.titleline--1{ color:#eaf5ff; }
+.titleline--2{ color:var(--accent-color); }
+
+.subtitle{ margin:.35rem 0 0; color:var(--muted); font-size:var(--subtitle-size); }
+
+/* STATUS (apenas 1 chip) */
+.statusbar{
+  display:flex; flex-wrap:wrap; gap:10px;
+  justify-content:center; margin-top:10px;
+  width:min(var(--wrap-max), 92vw); margin-left:auto; margin-right:auto;
+}
+.chip{
+  border:1px solid var(--chipStroke);
+  background:var(--chip); color:#cfe7f6;
+  font-weight:800; letter-spacing:.04em; font-size:var(--chip-font);
+  padding:var(--chip-pad-y) var(--chip-pad-x);
+  border-radius:var(--chip-radius);
+  min-width: var(--chip-minw); text-align:center;
+}
+
+/* =========================
+   PAINEL DO CRONÔMETRO
+   ========================= */
+.timerCard{
+  margin:18px auto 12px;
+  width:min(var(--timer-width), 92vw);
+  padding: var(--card-pad-y) var(--card-pad-x);
+  border-radius: var(--card-radius);
+  background: linear-gradient(180deg,#0f2330,#0a1a23);
+  border: 2px solid rgba(76, 207, 255, .7);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.05),
+    0 0 0 3px rgba(76,207,255,.14),
+    0 0 18px rgba(76,207,255,.18);
+  display:flex; align-items:center; justify-content:center; /* folgas iguais */
+  overflow:hidden;
+}
+
+/* Dígitos compactos, com ':' mais perto */
+.digits{
+  font-family:"Segment7", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight:900; font-variant-numeric:tabular-nums;
+  font-size: clamp(var(--digits-min), var(--digits-vw), var(--digits-max));
+  line-height:1; color:var(--orange);
+  letter-spacing: var(--digits-track);
+  transform: scaleX(var(--digits-scaleX));
+  white-space: nowrap;
+  text-shadow:
+    0 0 14px rgba(255,176,77,.35),
+    0 0 28px rgba(255,176,77,.18);
+  -webkit-text-stroke: 2px rgba(255,176,77,.08);
+}
+
+.digits .sep{
+  display:inline-block;
+  margin: 0 .08em;                 /* <<< mais perto */
+  transform: translateY(-0.02em) scale(0.92);
+  text-shadow:
+    0 0 14px rgba(255,176,77,.35),
+    0 0 28px rgba(255,176,77,.18);
+}
+
+/* =========================
+   BOTÕES / SELO
+   ========================= */
+.actions{ display:flex; gap:16px; justify-content:center; margin:12px 0 22px }
+.btn{
+  appearance:none; cursor:pointer;
+  background:var(--btn); color:#e7f6ff;
+  border:1px solid var(--btnStroke); border-radius:12px;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  font-size: var(--btn-font);
+  font-weight:900; letter-spacing:.08em;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset,
+              0 6px 18px rgba(0,0,0,.35),
+              0 0 18px var(--frameSoft);
+  transition: transform .15s ease, filter .15s ease, box-shadow .2s ease;
+}
+.btn:hover{ transform: translateY(-1px); filter: brightness(1.08); }
+.btn:active{ transform: none; }
+
+.selo{ display:flex; justify-content:center; }
+.selo-img{
+  width: clamp(180px, 24vw, var(--badge-max)); height:auto;
+  filter: drop-shadow(0 6px 24px rgba(0,0,0,.35));
+}
+
+/* fallback “sete segmentos” usando mono do sistema */
+@font-face{ font-family:"Segment7"; src: local("Consolas"); }

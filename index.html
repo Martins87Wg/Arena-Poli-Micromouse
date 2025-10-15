@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Arena Poli: Micromouse</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <div class="bg"></div>
+
+  <main class="stage">
+    <header class="hero hero--center">
+      <div class="brand-row">
+        <img class="mouse-img" src="./assets/mouse.png" alt="Micromouse" />
+        <div class="titleblock">
+          <div class="titleline titleline--1">ARENA POLI:</div>
+          <div class="titleline titleline--2">MICROMOUSE</div>
+        </div>
+      </div>
+
+      <p class="subtitle">Escola Politécnica de Pernambuco</p>
+
+      <div class="statusbar">
+        <span id="conn" class="chip">OFFLINE</span>
+      </div>
+    </header>
+
+    <section class="timerCard">
+      <div id="timer" class="digits">00<span class="sep">:</span>00<span class="sep">:</span>00</div>
+    </section>
+
+    <div class="actions">
+      <button id="playBtn"  class="btn">PLAY</button>
+      <button id="resetBtn" class="btn">RESET</button>
+    </div>
+
+    <div class="selo">
+      <img class="selo-img" src="./assets/poli_upe.png" alt="POLI • UPE" />
+    </div>
+  </main>
+
+  <script src="./js/script.js" defer></script>
+</body>
+</html>
